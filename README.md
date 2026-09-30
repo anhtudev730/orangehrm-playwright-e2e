@@ -26,3 +26,6 @@ src/fixtures: per-test and authenticated fixtures.
 src/sites/orangehrm: OrangeHRM Elements, Pages, and Steps.
 src/core: shared page/step primitives and terminal reporting.
 
+## CI
+
+Pull requests run OrangeHRM smoke tests with GitHub Actions.
