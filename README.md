@@ -29,3 +29,7 @@ src/core: shared page/step primitives and terminal reporting.
 ## CI
 
 Pull requests run OrangeHRM smoke tests with GitHub Actions.
+
+## CI Practice
+
+This project uses GitHub Actions to run Playwright smoke tests.
