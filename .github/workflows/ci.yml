@@ -14,13 +14,40 @@ on:
 permissions:
   contents: read
 
-concurrency:
-  group: orangehrm-ci-${{ github.ref }}
-  cancel-in-progress: true
-
 jobs:
+
+  # =========================
+  # JOB 1 - TYPECHECK
+  # =========================
+  typecheck:
+    name: TypeScript Check
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v6
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run TypeScript check
+        run: npm run typecheck
+
+
+  # =========================
+  # JOB 2 - SMOKE TEST
+  # =========================
   smoke-test:
-    name: Typecheck + Smoke Tests
+    name: Playwright Smoke Tests
+
+    needs: typecheck
 
     runs-on: ubuntu-latest
 
@@ -28,6 +55,7 @@ jobs:
 
     env:
       BASE_URL: https://opensource-demo.orangehrmlive.com
+
       E2E_USERNAME: ${{ secrets.E2E_USERNAME }}
       E2E_PASSWORD: ${{ secrets.E2E_PASSWORD }}
 
@@ -48,9 +76,6 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: TypeScript check
-        run: npm run typecheck
-
       - name: Install Chromium
         run: npx playwright install --with-deps chromium
 
@@ -66,7 +91,7 @@ jobs:
           retention-days: 14
           if-no-files-found: ignore
 
-      - name: Upload failure artifacts
+      - name: Upload test results
         if: ${{ !cancelled() }}
         uses: actions/upload-artifact@v5
         with:
