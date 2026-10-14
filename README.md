@@ -18,10 +18,19 @@ npm run test:ui
 npm run test:debug
 npm run test:report
 
+UI-focused checks are isolated under `ui-tests/` and use `playwright.ui.config.ts`:
+
+```bash
+npx playwright test --config=playwright.ui.config.ts
+npx playwright test --config=playwright.ui.config.ts --headed
+npx playwright show-report playwright-report/ui-tests
+```
+
 Environment: BASE_URL, E2E_USERNAME, E2E_PASSWORD, E2E_LEAVE_TYPE, PW_HEADLESS, PW_WORKERS, PW_FULLY_PARALLEL, PW_RETRIES, PW_RETAIN_TRACE. Local defaults are headed, one worker, no full parallelism, zero retries. CI defaults to headless and two retries. Failure artifacts include screenshot, video, and trace; PW_RETAIN_TRACE=true also keeps passing traces.
 
 ## Layout
 tests/orangehrm: specs and support test data.
+ui-tests: UI-focused login and navigation checks with a dedicated config and report output.
 src/fixtures: per-test and authenticated fixtures.
 src/sites/orangehrm: OrangeHRM Elements, Pages, and Steps.
 src/core: shared page/step primitives and terminal reporting.
