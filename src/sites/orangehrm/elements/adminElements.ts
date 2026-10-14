@@ -2,7 +2,9 @@
 export class AdminElements {
   readonly addButton; readonly saveButton; readonly searchButton;
   constructor(private readonly page: Page) {
-    this.addButton=page.getByRole('button',{name:'Add',exact:true});
+    // OrangeHRM includes the button icon in its accessible name (for example, "ï“¾ Add").
+    // Match the visible action text without requiring an exact accessible-name match.
+    this.addButton=page.getByRole('button',{name:/Add/});
     this.saveButton=page.getByRole('button',{name:'Save',exact:true});
     this.searchButton=page.getByRole('button',{name:'Search',exact:true});
   }
