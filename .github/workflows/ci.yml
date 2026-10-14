@@ -42,10 +42,10 @@ jobs:
 
 
   # =========================
-  # JOB 2 - SMOKE TEST
+  # JOB 2 - ALL TESTS
   # =========================
-  smoke-test:
-    name: Playwright Smoke Tests
+  playwright-tests:
+    name: Playwright Tests
 
     needs: typecheck
 
@@ -79,8 +79,8 @@ jobs:
       - name: Install Chromium
         run: npx playwright install --with-deps chromium
 
-      - name: Run smoke tests
-        run: npm run test:smoke
+      - name: Run all tests
+        run: npm test
 
       # Report tổng quan
       # PASS hoặc FAIL đều upload
