@@ -20,5 +20,6 @@ test('creates, approves and cancels an ESS leave request with cleanup',async({au
     await cleanup.leaveEntitlement(hrm,name,type);
     await cleanup.employee(hrm,name);
   }
+
 });
 

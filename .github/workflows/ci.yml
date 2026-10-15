@@ -42,9 +42,9 @@ jobs:
 
 
   # =========================
-  # JOB 2 - SMOKE TEST
+  # JOB 2 - SMOKE TESTS
   # =========================
-  smoke-test:
+  playwright-smoke:
     name: Playwright Smoke Tests
 
     needs: typecheck
